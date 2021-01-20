@@ -4,22 +4,20 @@ namespace Lmc.Fable.Authorization
 module Api =
     open Lmc.Authorization.Common
 
-    type ErrorMessage = string
-
-    let private handleResult onSuccess onError = function
+    let private handleResult (onSuccess: ('Success -> 'Action)) (onError: ('ErrorMessage -> 'Action)) = function
         | Ok success -> success |> onSuccess
         | Error error -> error |> onError
 
-    let call<'Success, 'Action>
+    let call<'Success, 'Action, 'ErrorMessage>
         (onSuccess: ('Success -> 'Action))
-        (onError: (ErrorMessage -> 'Action))
-        (call: Async<Result<'Success, ErrorMessage>>): Async<'Action> = async {
+        (onError: ('ErrorMessage -> 'Action))
+        (call: Async<Result<'Success, 'ErrorMessage>>): Async<'Action> = async {
             let! callResult = call
 
             return callResult |> handleResult onSuccess onError
         }
 
-    let private handleSecuredResult onSuccess onError onAuthorizationError = function
+    let private handleSecuredResult (onSuccess: ('Success -> 'Action)) (onError: ('ErrorMessage -> 'Action)) (onAuthorizationError: ('ErrorMessage -> 'Action)) = function
         | Ok (token, success) ->
             token |> User.renewToken
             success |> onSuccess
@@ -32,11 +30,11 @@ module Api =
         | Error (SecuredRequestError.OtherError error) ->
             error |> onError
 
-    let callSecured<'Success, 'Action>
+    let callSecured<'Success, 'Action, 'ErrorMessage>
         (onSuccess: ('Success -> 'Action))
-        (onError: (ErrorMessage -> 'Action))
-        (onAuthorizationError: (ErrorMessage -> 'Action))
-        (call: SecuredAsyncResult<'Success, ErrorMessage>): Async<'Action> = async {
+        (onError: ('ErrorMessage -> 'Action))
+        (onAuthorizationError: ('ErrorMessage -> 'Action))
+        (call: SecuredAsyncResult<'Success, 'ErrorMessage>): Async<'Action> = async {
             let! callResult = call
 
             return callResult |> handleSecuredResult onSuccess onError onAuthorizationError
