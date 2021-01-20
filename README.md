@@ -53,6 +53,8 @@ open Lmc.Authorization.Common
 open Lmc.Fable.Authorization
 open Shared
 
+type MyErrorType = MyErrorType of string
+
 module private Server =
     open Fable.Remoting.Client
 
@@ -73,10 +75,12 @@ let login onSuccess onError credentials =
 // Secured actions
 //
 
+let secure onError: Secure<'RequestData, 'Action> = Authorization.secure MyErrorType onError
+
 open Authorization.Operators
 
 let loadData onSuccess onError onAuthorizationError =
-    Authorization.secure onError >?> (Server.api.LoadData >> Api.callSecured onSuccess onError onAuthorizationError)
+    secure onError >?> (Server.api.LoadData >> Api.callSecured onSuccess onError onAuthorizationError)
 ```
 
 ## Release
