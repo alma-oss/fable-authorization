@@ -2,6 +2,8 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Add, Changed, Fix, Removed) should be Add as needed. -->
 ## Unreleased
+
+## 3.0.0 - 2021-02-04
 - [**BC**] Use `UserDto` in localStorage to match a GUI format
 
 ## 2.0.0 - 2021-01-21
