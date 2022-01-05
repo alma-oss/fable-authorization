@@ -2,6 +2,7 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Add, Changed, Fix, Removed) should be Add as needed. -->
 ## Unreleased
+- [**BC**] Use net6.0
 
 ## 3.0.0 - 2021-02-04
 - [**BC**] Use `UserDto` in localStorage to match a GUI format
