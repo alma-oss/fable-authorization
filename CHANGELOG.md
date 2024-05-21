@@ -2,6 +2,10 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Add, Changed, Fix, Removed) should be Add as needed. -->
 ## Unreleased
+- [**BC**] Use `Alma` namespace
+- [**BC**] Use net8.0
+- Fix package metadata
+- [**BC**] Change `Api` module to `Secure` module
 
 ## 4.0.0 - 2022-01-05
 - [**BC**] Use net6.0
