@@ -3,7 +3,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <OutputType>Library</OutputType>
         <PackageId>Alma.Fable.Authorization</PackageId>
-        <Version>5.0.0</Version>
+        <Version>6.0.0</Version>
         <RepositoryUrl>https://github.com/almacareer/prc-fable-authorization.git</RepositoryUrl>
         <PackageProjectUrl>https://github.com/almacareer/prc-fable-authorization</PackageProjectUrl>
     </PropertyGroup>
