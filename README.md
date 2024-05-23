@@ -9,14 +9,20 @@ Fable.Authorization
 
 Add following into `paket.dependencies`
 ```
-git ssh://git@bitbucket.lmc.cz:7999/archi/nuget-server.git master Packages: /nuget/
+source https://nuget.pkg.github.com/almacareer/index.json username: "%PRIVATE_FEED_USER%" password: "%PRIVATE_FEED_PASS%"
 # LMC Nuget dependencies:
-nuget Lmc.Fable.Authorization
+nuget Alma.Fable.Authorization
+```
+
+NOTE: For local development, you have to create ENV variables with your github personal access token.
+```sh
+export PRIVATE_FEED_USER='{GITHUB USERNANME}'
+export PRIVATE_FEED_PASS='{TOKEN}'	# with permissions: read:packages
 ```
 
 Add following into `paket.references`
 ```
-Lmc.Fable.Authorization
+Alma.Fable.Authorization
 ```
 
 ## Use
@@ -26,7 +32,7 @@ User is set to a `local storage` with default key `user`. You should change it t
 
 #### Set up a User key
 ```fs
-open Lmc.Fable.Authorization
+open Alma.Fable.Authorization
 
 User.setUserKey "my-domain.user"
 ```
@@ -36,21 +42,55 @@ User.setUserKey "my-domain.user"
 First of all you need to have an Api (defined in Shared project of your SAFE app).
 ```fs
 // Shared
-open Lmc.Authorization.Common
+open Alma.Authorization.Common
 
 type IMyApi = {
     // Public actions
     Login: Username * Password -> AsyncResult<User, string>
 
     // Secured actions
-    LoadData: SecureRequest<unit> -> SecuredAsyncResult<Data list, string>
+    LoadData: SecuredApiCall<unit, Data list, string> // Where unit is a request data, Data list is the response and string is an error
+}
+```
+
+Define in the server.
+```fs
+open Alma.ErrorHandling
+open Alma.ErrorHandling.Result.Operators
+open Alma.Authorization
+open Alma.Authorization.Common
+
+// Server
+let inline private (>?>) authorize action =
+    Authorize.authorizeAction
+        currentApplication.Authorization
+        id
+        logAuthorizationError
+        authorize
+        action
+
+let (api: IMyApi) = {
+    Login = fun (username, password) -> asyncResult {
+        let! credentials =
+            (username, password)
+            |> Credentials.deserialize <@> CredentialsError.format
+
+        return!
+            credentials
+            |> User.login currentApplication.Authorize
+    }
+
+    LoadData = Authorize.withLogin >?> fun () -> asyncResult {
+        return [ (* list of Data *) ]
+    }
 }
 ```
 
 Then define a proxy to your Api.
 ```fs
-open Lmc.Authorization.Common
-open Lmc.Fable.Authorization
+// Client
+open Alma.Authorization.Common
+open Alma.Fable.Authorization
 open Shared
 
 type MyErrorType = MyErrorType of string
@@ -68,39 +108,30 @@ module private Server =
 // Public actions
 //
 
-let login onSuccess onError credentials =
-    Server.api.Login credentials |> Api.call onSuccess onError
+let login = Server.api.Login
 
 //
 // Secured actions
 //
 
-let secure onError: Secure<'RequestData, 'Action> = Authorization.secure MyErrorType onError
-
-open Authorization.Operators
-
-let loadData onSuccess onError onAuthorizationError =
-    secure onError >?> (Server.api.LoadData >> Api.callSecured onSuccess onError onAuthorizationError)
+let loadData: unit -> AsyncResult<Data list, Secure.SecureError<MyErrorType>> = Secure.api MyErrorType Server.api.LoadData
 ```
 
 ## Release
-1. Increment version in `Fable.Authorization.fsproj`
+1. Increment version in `Alma.Fable.Profiler.fsproj`
 2. Update `CHANGELOG.md`
 3. Commit new version and tag it
-4. Run `$ fake build target release`
-5. Go to `nuget-server` repo, run `faket build target copyAll` and push new versions
 
 ## Development
 ### Requirements
 - [dotnet core](https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial)
-- [FAKE](https://fake.build/fake-gettingstarted.html)
 
 ### Build
 ```bash
-fake build
+./build.sh build
 ```
 
-### Watch
+### Tests
 ```bash
-fake build target watch
+./build.sh -t tests
 ```

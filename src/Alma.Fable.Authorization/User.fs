@@ -1,9 +1,9 @@
-namespace Lmc.Fable.Authorization
+namespace Alma.Fable.Authorization
 
 [<RequireQualifiedAccess>]
 module User =
-    open Lmc.Fable.Storage
-    open Lmc.Authorization.Common
+    open Alma.Fable.Storage
+    open Alma.Authorization.Common
 
     // fsharplint:disable
     type private UserDto = {
@@ -14,8 +14,8 @@ module User =
 
     [<RequireQualifiedAccess>]
     module private UserDto =
-        let fromUser { Username = Username username; Token = JWTToken token } = { userName = username; token = token }
-        let toUser { userName = username; token = token } = { Username = Username username; Token = JWTToken token }
+        let fromUser { Username = Username username; Token = JWT token } = { userName = username; token = token }
+        let toUser { userName = username; token = token } = { Username = Username username; Token = JWT token }
 
     let mutable private userKey = "user"
 
@@ -27,18 +27,17 @@ module User =
         |> UserDto.fromUser
         |> LocalStorage.save userKey
 
+    let delete () =
+        LocalStorage.delete userKey
+
     let load (): User option =
         match userKey |> LocalStorage.load<UserDto> with
         | Ok user -> Some (user |> UserDto.toUser)
         | Error _ ->
-            LocalStorage.delete userKey
-            // todo - log error
+            delete ()
             None
 
     let renewToken (RenewedToken token) =
         match load() with
         | Some user -> { user with Token = token } |> save
         | _ -> ()
-
-    let delete () =
-        LocalStorage.delete userKey
