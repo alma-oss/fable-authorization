@@ -2,6 +2,8 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Add, Changed, Fix, Removed) should be Add as needed. -->
 ## Unreleased
+
+## 9.0.1 - 2026-02-10
 - Downgrade dependencies
 
 ## 9.0.0 - 2026-01-29
