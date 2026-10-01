@@ -3,6 +3,7 @@
 <!-- There is always Unreleased section on the top. Subsections (Add, Changed, Fix, Removed) should be Add as needed. -->
 ## Unreleased
 
+## 10.0.0 - 2026-10-01
 - Update dependencies
   - [**BC**] Require Fable.Core 5
 
