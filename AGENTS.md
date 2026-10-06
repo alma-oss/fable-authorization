@@ -1,5 +1,7 @@
 # AGENTS.md — Alma.Fable.Authorization
 
+This repo ships Agent Skill for the `Alma.Fable.Authorization` library. Compatible agents discover it automatically; see `.agents/skills/fable-authorization/SKILL.md`.
+
 ## Project Purpose
 
 `Alma.Fable.Authorization` is a Fable (F#-to-JavaScript) NuGet library for client-side authorization in SAFE stack web applications. It handles user session management via browser `localStorage`, secured API call composition, automatic token renewal on successful responses, and automatic user logout on token errors.

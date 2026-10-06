@@ -1,0 +1,113 @@
+lockfile_version: '1'
+dependencies: []
+deployments:
+- kind: project-relative
+  target: claude
+  value: .claude/skills/fable-authorization
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/fable-authorization/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:3ab446069296f541c501793e2771835ba46fb7a7cfb352536e997ac7c1a0055a
+- kind: project-relative
+  target: claude
+  value: .claude/skills/fable-authorization/references/anti-patterns.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:703e0c91e59ec7e16f2cdc70d9937d0290e2691b29f7cd7b2c8ae6413d9d2941
+- kind: project-relative
+  target: claude
+  value: .claude/skills/fable-authorization/references/examples.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:0b9c5aab47a2e3dc5392652354685f7c41d0475838216cdef26d5d7646ff40e2
+- kind: project-relative
+  target: claude
+  value: .claude/skills/fable-authorization/references/preferred-patterns.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:719242b9029938253caa697c01ce370b8304a5bc938afbafd8d39c6eb2d1a504
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/fable-authorization
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/fable-authorization/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:3ab446069296f541c501793e2771835ba46fb7a7cfb352536e997ac7c1a0055a
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/fable-authorization/references/anti-patterns.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:703e0c91e59ec7e16f2cdc70d9937d0290e2691b29f7cd7b2c8ae6413d9d2941
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/fable-authorization/references/examples.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:0b9c5aab47a2e3dc5392652354685f7c41d0475838216cdef26d5d7646ff40e2
+- kind: project-relative
+  target: legacy
+  value: .agents/skills/fable-authorization/references/preferred-patterns.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:719242b9029938253caa697c01ce370b8304a5bc938afbafd8d39c6eb2d1a504
+local_deployed_files:
+- .agents/skills/fable-authorization
+- .agents/skills/fable-authorization/SKILL.md
+- .agents/skills/fable-authorization/references/anti-patterns.md
+- .agents/skills/fable-authorization/references/examples.md
+- .agents/skills/fable-authorization/references/preferred-patterns.md
+- .claude/skills/fable-authorization
+- .claude/skills/fable-authorization/SKILL.md
+- .claude/skills/fable-authorization/references/anti-patterns.md
+- .claude/skills/fable-authorization/references/examples.md
+- .claude/skills/fable-authorization/references/preferred-patterns.md
+local_deployed_file_hashes:
+  .agents/skills/fable-authorization/SKILL.md: sha256:3ab446069296f541c501793e2771835ba46fb7a7cfb352536e997ac7c1a0055a
+  .agents/skills/fable-authorization/references/anti-patterns.md: sha256:703e0c91e59ec7e16f2cdc70d9937d0290e2691b29f7cd7b2c8ae6413d9d2941
+  .agents/skills/fable-authorization/references/examples.md: sha256:0b9c5aab47a2e3dc5392652354685f7c41d0475838216cdef26d5d7646ff40e2
+  .agents/skills/fable-authorization/references/preferred-patterns.md: sha256:719242b9029938253caa697c01ce370b8304a5bc938afbafd8d39c6eb2d1a504
+  .claude/skills/fable-authorization/SKILL.md: sha256:3ab446069296f541c501793e2771835ba46fb7a7cfb352536e997ac7c1a0055a
+  .claude/skills/fable-authorization/references/anti-patterns.md: sha256:703e0c91e59ec7e16f2cdc70d9937d0290e2691b29f7cd7b2c8ae6413d9d2941
+  .claude/skills/fable-authorization/references/examples.md: sha256:0b9c5aab47a2e3dc5392652354685f7c41d0475838216cdef26d5d7646ff40e2
+  .claude/skills/fable-authorization/references/preferred-patterns.md: sha256:719242b9029938253caa697c01ce370b8304a5bc938afbafd8d39c6eb2d1a504
